@@ -54,6 +54,14 @@
                 </button>
             </form>
             <p class="lead mt-4">Have An Account? <a href="/users/login">Login</a></p>
+
+            <script>
+                // Eğer sunucudan bir hata mesajı geldiyse, alert kutusu olarak göster
+                <% if (typeof error !== 'undefined') { %>
+                alert("<%= error %>");
+                <% } %>
+            </script>
+
         </div>
     </div>
 </div>
