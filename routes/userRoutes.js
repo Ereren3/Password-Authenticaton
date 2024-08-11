@@ -1,33 +1,13 @@
-const express = require('express');
-const User = require('../models/user');
-const e = require("express");
+const express = require("express");
+const userController = require("../controllers/userController");
 
 const router = express.Router();
 
-router.route("/login").get((req, res) => {
-    res.render('login');
-})
+router.route("/login").get(userController.getLoginPage);
+router.route("/login").post(userController.loginUser);
+router.route("/register").get(userController.getRegisterPage);
+router.route("/register").post(userController.createUser);
+router.route("/logout").post(userController.loginUser);
 
-router.route("/register").get((req, res) => {
-    res.render('register');
-})
-
-router.route("/register").post(async (req, res) => {
-    const {password, password2} = req.body;
-
-    if (password !== password2) {
-        res.render('register', {
-            error: "Passwords dont match",
-        });
-        return false;
-    }
-
-    await User.create(req.body)
-        .then(() => {
-            res.redirect('login');
-        })
-        .catch((err)=>{console.log(err)});
-
-})
 
 module.exports = router;
